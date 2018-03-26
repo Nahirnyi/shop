@@ -27,16 +27,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public static function add($fields)
-    // {
-    //     $order = new static;
-    //     $order->fill($fields);
-    //     $order->setDefaultStatus();
-    //     $order->save();
-
-    //     return $order;
-    // }
-
+    // додавання замовлення
     public static function add($id)
     {
         $order = new static;
@@ -47,13 +38,14 @@ class Order extends Model
         return $order;
     }
 
-
+    //редагування замовлення
     public function edit($fields)
     {
     	$this->fill($fields);
     	$this->save();
     }
 
+    //додавання телефонів у замовлення
     public function addMobiles($arrs)
     {
     	if ($arrs == null) {
@@ -65,30 +57,35 @@ class Order extends Model
     	
     }
 
+    // встановлення початкового статусу замовлення
     public function setDefaultStatus()
     {
     	$this->status = "delivered";
     	$this->save();
     }
 
+    // встановлення статусу як "переглянуто"
     public function setStatusSaw()
     {
     	$this->status = "saw";
     	$this->save();
     }
 
+    // встановлення статусу "у дорозі"
     public function setStatusRoad()
     {
     	$this->status = "road";
     	$this->save();
     }
 
-     public function setStatusSuccess()
+    // встаовлення статусу "успішно виконано"
+    public function setStatusSuccess()
     {
     	$this->status = "success";
     	$this->save();
     }
 
+    // повертає всі телефони даного замовлення
     public function getMobiles()
     {
     	if (!$this->mobiles->isEmpty()) {

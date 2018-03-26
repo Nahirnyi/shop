@@ -34,6 +34,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    // додаваннянового користувача
     public static function add($fields)
     {
         $user = new static;
@@ -45,18 +46,21 @@ class User extends Authenticatable
         return $user;
     }
     
+    // редагування користувача
     public function edit($fields)
     {
         $this->fill($fields);
         $this->save();
     }
 
+    // видалення користувача
     public function remove()
     {
         $this->removeAvatar();
         $this->delete();
     }
 
+    // видалення картинки користувача
     public function removeAvatar()
     {
          if ($this->avatar != null) {
@@ -64,6 +68,7 @@ class User extends Authenticatable
         }
     }
 
+    // завантаження картинки
     public function uploadAvatar($image)
     {
         if ($image == null) {
@@ -77,6 +82,7 @@ class User extends Authenticatable
         $this->save();
     }
 
+    // шифрування і збереження пароля
     public function generatePassword($password)
     {
         if ($password != null) {
@@ -85,7 +91,8 @@ class User extends Authenticatable
         }
     }
 
-     public function getImage()
+    // повертає картинку користувача
+    public function getImage()
     {
         if ($this->avatar == null) {
             return '../../img/no-image.png';
@@ -94,18 +101,21 @@ class User extends Authenticatable
         return '../../../uploads/' . $this->avatar;
     }
 
+    // робить користувача адміном
     public function makeAdmin()
     {
         $this->is_admin = 1;
         $this->save();
     }
 
+    // робить користувача простим користувачем
     public function makeNormal()
     {
         $this->is_admin = 0;
         $this->save();
     }
 
+    // переключатель між адміном і простим користувачем
     public function toggleAdmin()
     {
         if ($this->is_admin) {
@@ -115,18 +125,21 @@ class User extends Authenticatable
         return $this->makeAdmin();
     }
 
+    // банить користувача
     public function ban()
     {
         $this->ban = 1;
         $this->save();
     }
 
+    // розбанює користувача
     public function unban()
     {
         $this->ban = 0;
         $this->save();
     }
 
+    // переключатель між баном і анбаном
     public function toggleBan()
     {
         if ($this->ban) {

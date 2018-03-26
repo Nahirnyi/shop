@@ -29,6 +29,7 @@ class Mobile extends Model
     	return $this->belongsTo(Category::class);
     }
 
+    //створення нового телефону
     public static function add($fields)
     {
     	$phone = new static;
@@ -39,6 +40,8 @@ class Mobile extends Model
     	return $phone;
     }
 
+
+    //редагування даних телефона
     public function edit($fields)
     {
     	$this->fill($fields);
@@ -46,18 +49,21 @@ class Mobile extends Model
     	$this->save();
     }
 
+    //змінення кількості телефонів
     public function changeCountMobiles($count)
     {
         $this->count = $count;
         $this->save();
     }
 
+    //видалення телефону
     public function remove()
     {
     	$this->removeImage();
     	$this->delete();
     }
 
+    //видалення картинки телефону
     public function removeImage()
     {
         if ($this->image != null) {
@@ -65,6 +71,7 @@ class Mobile extends Model
         }
     }
 
+    //збереження картинки телефона
     public function uploadImage($image)
     {
     	if ($image == null) {
@@ -78,6 +85,7 @@ class Mobile extends Model
     	$this->save();
     }
 
+    // повертає картинку телефону
     public function getImage()
     {
     	if ($this->image == null) {
@@ -87,6 +95,7 @@ class Mobile extends Model
     	return '../../../' . $this->image;
     }
 
+    //добавляє категорію до телефону
     public function setCategory($id)
     {
     	if ($id == null) {
@@ -96,6 +105,7 @@ class Mobile extends Model
     	$this->save();
     }
 
+    //повертає назву категорії телефону
     public function getCategoryTitle()
     {
         return $this->category->name;
